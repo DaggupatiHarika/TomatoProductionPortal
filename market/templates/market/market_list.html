@@ -1,0 +1,75 @@
+<!-- market/templates/market/market_list.html -->
+{% extends 'Info/base.html' %}
+
+{% block content %}
+  <h1>Market List</h1>
+
+  <form method="get">
+    <label for="state">Select State:</label>
+    <select name="state" id="state">
+      <option value="">All States</option>
+      {% for state in states %}
+        <option value="{{ state.id }}">{{ state.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="district">Select District:</label>
+    <select name="district" id="district">
+      <option value="">All Districts</option>
+      {% for market in markets %}
+        <option value="{{ market.district.id }}">{{ market.district.name }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+  </form>
+
+  <table id="table_style_1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>State</th>
+        <th>District</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for market in markets %}
+        <tr>
+          <td>{{ market.name }}</td>
+          <td>{{ market.state.name }}</td>
+          <td>{{ market.district.name }}</td>
+          <td>{{ market.latitude }}</td>
+          <td>{{ market.longitude }}</td>
+          <td><button type="button"><a href="{% url 'market-graph' market.id %}">Details</a></button></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <style>
+  #table_style_1 {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #table_style_1 td, #table_style_1 th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #table_style_1 tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #table_style_1 tr:hover {background-color: #ddd;}
+  
+  #table_style_1 th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+</style>
+{% endblock %}

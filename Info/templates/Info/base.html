@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmInfo App</title>
+    <link rel="stylesheet" href="{% static 'Info/main.css' %}">
+  </head>
+  <body>
+    <header>
+      <h1>Tomato Farming</h1>
+    </header>
+    <nav>
+      <a href="{% url 'info-home' %}">Home</a>
+      <a href="{% url 'info-farming' %}">Tomato Farming</a>
+      <a href="{% url 'info-disease' %}">Disease Management</a>
+      <a href="{% url 'market-list' %}">Market</a>
+      
+      
+
+    </nav>
+    <section id="content">{% block content %} {% endblock content %}</section>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!-- market/templates/market/market_map.html -->
+{% extends 'market/base.html' %}
+
+{% block content %}
+  <h1>Markets Map</h1>
+  <div id="map" style="height: 500px;"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([{{ markets.first.latitude }}, {{ markets.first.longitude }}], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    {% for market in markets %}
+      L.marker([{{ market.latitude }}, {{ market.longitude }}]).addTo(map)
+        .bindPopup("<b>{{ market.name }}</b><br>{{ market.state.name }}, {{ market.district.name }}");
+    {% endfor %}
+  </script>
+{% endblock %}
